@@ -26,21 +26,10 @@ export class LongTouchDirective {
     }, LongTouchDirective.TIMEOUT)
   }
 
-  @HostListener('mouseup', ['$event'])
-  @HostListener('touchend', ['$event'])
-  onPressEnd(event: Event) {
-    if (this.pressInProcess) {
-      event.preventDefault()
-    }
-    this.reset()
-  }
-
+  @HostListener('mouseup')
+  @HostListener('touchend')
   @HostListener('mousemove')
-  onPressInterrupted() {
-    this.reset()
-  }
-
-  private reset() {
+  reset() {
     this.pressInProcess = false
     clearTimeout(this.timerId)
   }

@@ -1,44 +1,93 @@
 import {Injectable} from "@angular/core";
 import {Entry} from "../model/entry";
-import {Observable, of} from "rxjs";
+import {from, Observable, of, partition} from "rxjs";
+import {map, mergeMap} from "rxjs/operators";
+import Dexie from "dexie";
+import {plainToClass} from "class-transformer";
 
 @Injectable()
 export class DataService {
 
+  private static TABLE: string = 'entries'
+  private static CACHE: string = 'quick-access'
+  private static CACHE_PREFIX: string = '/file/'
+
+  private db: Dexie
+
+  constructor() {
+    this.db = new Dexie(DataService.CACHE)
+    this.db.version(1).stores({
+      entries: "++id,name,path,favorite"
+    })
+
+  }
+
   list(): Observable<Entry[]> {
-    return of([
-      this.build(1, 'Test 1', 'test-1'),
-      this.build(2, 'Test 2', 'test-2'),
-      this.build(3, 'Test 3', 'test-3'),
-      this.build(4, 'Test 4', 'test-4'),
-      this.build(5, 'Test 5', 'test-5'),
-    ])
+    return from(this.db.table(DataService.TABLE).toArray())
+      .pipe(map(entries => entries.map(entry => plainToClass(Entry, entry))))
   }
 
   byId(id: number): Observable<Entry> {
-    return of(this.build(1, 'Test-1', 'test-1'))
+    return from(this.db.table(DataService.TABLE).get(id))
+      .pipe(map(entry => plainToClass(Entry, entry)))
   }
 
-  favorite(): Observable<Entry> {
-    // list()
-    // if no favorite then select first
-    return of()
+  favorite(): Observable<Entry | null> {
+    return this.list()
+      .pipe(
+        map(entries => {
+          let favorites = entries.filter(entry => entry.favorite)
+          if (favorites.length > 0) {
+            return favorites[0]
+          } else if (entries.length > 0) {
+            return entries[0]
+          } else {
+            return null
+          }
+        }),
+      )
   }
 
   update(entry: Entry): Observable<void> {
-    return of()
+    return from(
+      this.db.transaction('rw', this.db.table(DataService.TABLE), async () => {
+        await this.db.table(DataService.TABLE)
+          .filter(entry => entry.favorite == true)
+          .modify({favorite: false})
+
+        await this.db.table(DataService.TABLE).update(entry.id, entry)
+      })
+    ).pipe(map(() => {}))
   }
 
   remove(id: number): Observable<void> {
-    return of()
+    return from(
+      this.db.table(DataService.TABLE)
+        .get(id)
+        .then(entry => window.caches.open(DataService.CACHE)
+            .then(cache => cache.delete(entry.path))
+        )
+        .then(() => this.db.table(DataService.TABLE).delete(id))
+    ).pipe(map(() => {}))
   }
 
-  private build(id: number, name: string, data: string) {
+  create(file: File): Observable<void> {
+
     let entry = new Entry()
-    entry.id = id
-    entry.name = name
-    entry.data = data
-    return entry
+
+    return from(
+      this.db.table(DataService.TABLE)
+        .add(entry)
+        .then((id) => {
+          entry.id = id as number
+          entry.name = 'File #' + id
+          entry.path = DataService.CACHE_PREFIX + id
+
+          return window.caches.open(DataService.CACHE)
+        })
+        .then(cache => cache.put(entry.path, new Response(file)))
+        .then(() => this.db.table(DataService.TABLE).update(entry.id, entry))
+    ).pipe(map(() => {}))
   }
 
 }

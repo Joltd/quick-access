@@ -18,18 +18,21 @@ import {FormsModule} from "@angular/forms";
 import {MatDialogModule} from "@angular/material/dialog";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
+import {LongTouchDirective} from "./directive/long-touch.directive";
+import {MatCheckboxModule} from "@angular/material/checkbox";
 
 @NgModule({
   declarations: [
     AppComponent,
     BrowserComponent,
     ViewerComponent,
-    EditorComponent
+    EditorComponent,
+    LongTouchDirective
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ServiceWorkerModule.register('ngsw-worker.js', {
+    ServiceWorkerModule.register('quick-access-worker.js', {
       enabled: environment.production,
       // Register the ServiceWorker as soon as the app is stable
       // or after 30 seconds (whichever comes first).
@@ -43,7 +46,8 @@ import {MatInputModule} from "@angular/material/input";
     FormsModule,
     MatDialogModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatCheckboxModule
   ],
   providers: [DataService],
   bootstrap: [AppComponent]

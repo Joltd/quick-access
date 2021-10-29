@@ -11,7 +11,7 @@ import {Entry} from "../../model/entry";
 export class EditorComponent implements OnInit {
 
   private id: number
-  entry!: Entry
+  entry: Entry = new Entry()
 
   constructor(
     private dialog: MatDialogRef<EditorComponent>,

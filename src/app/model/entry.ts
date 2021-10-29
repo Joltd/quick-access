@@ -1,6 +1,6 @@
 export class Entry {
   id!: number
   name!: string
-  data!: string
+  path!: string
   favorite: boolean = false
 }

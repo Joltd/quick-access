@@ -1,8 +1,7 @@
 import {Component, OnInit} from "@angular/core";
 import {DataService} from "../../service/data.service";
 import {Entry} from "../../model/entry";
-import {ActivatedRoute} from "@angular/router";
-import {MatDialog} from "@angular/material/dialog";
+import {ActivatedRoute, Router} from "@angular/router";
 import {EditorComponent} from "../editor/editor.component";
 
 @Component({
@@ -16,14 +15,14 @@ export class ViewerComponent implements OnInit {
   entry: Entry = new Entry()
 
   constructor(
+    private router: Router,
     private route: ActivatedRoute,
-    private dialog: MatDialog,
     private dataService: DataService
   ) {}
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
-      this.id = params['id']
+      this.id = +params['id']
       this.load()
     })
   }
@@ -43,7 +42,7 @@ export class ViewerComponent implements OnInit {
           this.id = result.id
           this.setupEntry(result)
         } else {
-          // redirect to browser
+          this.router.navigate(['/browser']).then()
         }
       })
   }
@@ -55,30 +54,6 @@ export class ViewerComponent implements OnInit {
 
   private setupEntry(entry: Entry) {
     this.entry = entry
-    this.loadContent()
-  }
-
-  private loadContent() {
-
-  }
-
-  toBrowser() {
-    // redirect to browser
-  }
-
-  edit() {
-    this.dialog.open(EditorComponent, {data: {id: this.id}})
-      .afterClosed()
-      .subscribe(result => {
-        if (result) {
-          this.loadById()
-        }
-      })
-  }
-
-  remove() {
-    this.dataService.remove(this.id)
-      .subscribe(() => this.loadFavorite())
   }
 
 }

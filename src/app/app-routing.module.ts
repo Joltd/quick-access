@@ -7,7 +7,7 @@ const routes: Routes = [
   { path: 'browser', component: BrowserComponent },
   { path: 'viewer', component: ViewerComponent },
   { path: 'viewer/:id', component: ViewerComponent },
-  { path: '', redirectTo: '/viewer', pathMatch: 'full'}
+  { path: '', redirectTo: '/browser', pathMatch: 'full'}
 ];
 
 @NgModule({

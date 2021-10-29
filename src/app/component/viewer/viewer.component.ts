@@ -2,7 +2,7 @@ import {Component, OnInit} from "@angular/core";
 import {DataService} from "../../service/data.service";
 import {Entry} from "../../model/entry";
 import {ActivatedRoute, Router} from "@angular/router";
-import {EditorComponent} from "../editor/editor.component";
+import {environment} from "../../../environments/environment";
 
 @Component({
   selector: 'viewer',
@@ -10,6 +10,8 @@ import {EditorComponent} from "../editor/editor.component";
   styleUrls: ['viewer.component.scss']
 })
 export class ViewerComponent implements OnInit {
+
+  prod: boolean = environment.production
 
   private id!: number
   entry: Entry = new Entry()

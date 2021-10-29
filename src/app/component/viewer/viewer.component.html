@@ -2,7 +2,10 @@
   <a mat-icon-button [routerLink]="['/browser']"><mat-icon>list</mat-icon></a>
 </mat-toolbar>
 
-<img [src]="entry.path" [alt]="entry.name"/>
+<div class="image-container">
+  <img [src]="entry.path" [alt]="entry.name" *ngIf="prod"/>
+  <mat-icon class="no-image" *ngIf="!prod">image</mat-icon>
+</div>
 
 <!-- add carusel' -->
 

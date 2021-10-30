@@ -1,13 +1,19 @@
 .no-image {
   opacity: 0.3;
-  font-size: 10rem;
-  width: 10rem;
-  height: 10rem;
+  font-size: 100rem;
+  width: 100rem;
+  height: 100rem;
 }
 
 .image-container {
   display: grid;
   height: calc(100% - 56px);
-  justify-content: center;
-  align-content: center;
+  width: 100%;
+  overflow: auto;
+
+  img {
+    justify-self: center;
+    align-self: center;
+  }
+
 }

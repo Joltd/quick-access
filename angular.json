@@ -26,6 +26,8 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
+            "deployUrl": "/quick-access/",
+            "baseHref": "/quick-access/",
             "assets": [
               "src/favicon.ico",
               "src/assets",

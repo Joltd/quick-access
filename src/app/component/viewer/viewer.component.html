@@ -3,8 +3,8 @@
 </mat-toolbar>
 
 <div class="image-container">
-  <img [src]="entry.path" [alt]="entry.name" *ngIf="prod"/>
-  <mat-icon class="no-image" *ngIf="!prod">image</mat-icon>
+  <img [src]="entry.path" [alt]="entry.name" pinch-zoom *ngIf="prod"/>
+  <img src="/quick-access/assets/qr-code-big.png" alt="Dev no image" pinch-zoom *ngIf="!prod"/>
 </div>
 
 <!-- add carusel' -->

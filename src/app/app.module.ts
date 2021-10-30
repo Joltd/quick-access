@@ -20,6 +20,7 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {LongTouchDirective} from "./directive/long-touch.directive";
 import {MatCheckboxModule} from "@angular/material/checkbox";
+import {PinchZoomDirective} from "./directive/pinch-zoom.directive";
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import {MatCheckboxModule} from "@angular/material/checkbox";
     BrowserComponent,
     ViewerComponent,
     EditorComponent,
-    LongTouchDirective
+    LongTouchDirective,
+    PinchZoomDirective
   ],
   imports: [
     BrowserModule,

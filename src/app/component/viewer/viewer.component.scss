@@ -1,19 +1,67 @@
-.no-image {
-  opacity: 0.3;
-  font-size: 100rem;
-  width: 100rem;
-  height: 100rem;
+@use '~@angular/material' as mat;
+
+$primary: mat.define-palette(mat.$indigo-palette, 500);
+
+:host {
+  display: grid;
+  grid-template-rows: min-content 1fr min-content;
+  height: 100vh;
 }
 
-.image-container {
+.slide-container {
   display: grid;
-  height: calc(100% - 56px);
-  width: 100%;
-  overflow: auto;
+  overflow: hidden;
+}
 
-  img {
+.slide {
+  grid-column: 1;
+  grid-row: 1;
+  position: relative;
+  display: grid;
+  grid-template-rows: min-content 1fr;
+  grid-template-columns: 1fr;
+  overflow: hidden;
+  padding: 1rem;
+
+  .title {
     justify-self: center;
     align-self: center;
   }
 
+  .image-container {
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    //overflow: hidden;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+  }
 }
+
+.dots {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+
+  .dot {
+    border-radius: 50%;
+    width: 0.5rem;
+    height: 0.5rem;
+    margin: 0.25rem;
+    background-color: mat.get-color-from-palette($primary, 500);
+
+  }
+
+  .dot-big {
+    width: 0.75rem;
+    height: 0.75rem;
+  }
+}
+
+
+

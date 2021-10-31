@@ -13,9 +13,8 @@ export class LongTouchDirective {
   @Output()
   longClick: EventEmitter<void> = new EventEmitter<void>()
 
-  @HostListener('mousedown')
-  @HostListener('touchstart')
-  onPressStart() {
+  @HostListener('pointerdown')
+  onPointerDown() {
     this.pressInProcess = true
     this.timerId = setTimeout(() => {
       if (this.pressInProcess) {
@@ -26,10 +25,18 @@ export class LongTouchDirective {
     }, LongTouchDirective.TIMEOUT)
   }
 
-  @HostListener('mouseup')
-  @HostListener('touchend')
-  @HostListener('mousemove')
-  reset() {
+  @HostListener('pointerup', ['$event'])
+  onPointerUp(event: PointerEvent) {
+    if (this.pressInProcess) {
+      console.log('prevent')
+      event.preventDefault()
+    }
+    this.pressInProcess = false
+    clearTimeout(this.timerId)
+  }
+
+  @HostListener('pointermove')
+  onPointerMove() {
     this.pressInProcess = false
     clearTimeout(this.timerId)
   }

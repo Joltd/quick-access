@@ -1,6 +1,6 @@
 {
   "name": "quick-access",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve --serve-path /quick-access",
@@ -23,6 +23,7 @@
     "@angular/service-worker": "~12.2.0",
     "class-transformer": "^0.4.0",
     "dexie": "^3.0.3",
+    "hammerjs": "^2.0.8",
     "rxjs": "~6.6.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"

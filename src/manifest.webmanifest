@@ -1,8 +1,8 @@
 {
   "name": "Quick Access",
   "short_name": "Quick Access",
-  "theme_color": "#3f51b5",
-  "background_color": "#fafafa",
+  "theme_color": "#002884",
+  "background_color": "#E1E2E1",
   "display": "standalone",
   "scope": "./",
   "start_url": "./",

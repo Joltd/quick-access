@@ -21,6 +21,9 @@ import {MatInputModule} from "@angular/material/input";
 import {LongTouchDirective} from "./directive/long-touch.directive";
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import {PinchZoomDirective} from "./directive/pinch-zoom.directive";
+import {ScannerComponent} from "./component/scanner/scanner.component";
+import {ZXingScannerModule} from "@zxing/ngx-scanner";
+import {NgxQRCodeModule} from "@techiediaries/ngx-qrcode";
 
 @NgModule({
   declarations: [
@@ -28,30 +31,33 @@ import {PinchZoomDirective} from "./directive/pinch-zoom.directive";
     BrowserComponent,
     ViewerComponent,
     EditorComponent,
+    ScannerComponent,
     LongTouchDirective,
     PinchZoomDirective
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    ServiceWorkerModule.register('quick-access-worker.js', {
-      enabled: environment.production,
-      // Register the ServiceWorker as soon as the app is stable
-      // or after 30 seconds (whichever comes first).
-      registrationStrategy: 'registerWhenStable:30000'
-    }),
-    HammerModule,
-    BrowserAnimationsModule,
-    MatListModule,
-    MatButtonModule,
-    MatIconModule,
-    MatToolbarModule,
-    FormsModule,
-    MatDialogModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatCheckboxModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        ServiceWorkerModule.register('quick-access-worker.js', {
+            enabled: environment.production,
+            // Register the ServiceWorker as soon as the app is stable
+            // or after 30 seconds (whichever comes first).
+            registrationStrategy: 'registerWhenStable:30000'
+        }),
+        HammerModule,
+        BrowserAnimationsModule,
+        MatListModule,
+        MatButtonModule,
+        MatIconModule,
+        MatToolbarModule,
+        FormsModule,
+        MatDialogModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatCheckboxModule,
+        ZXingScannerModule,
+        NgxQRCodeModule
+    ],
   providers: [DataService],
   bootstrap: [AppComponent]
 })

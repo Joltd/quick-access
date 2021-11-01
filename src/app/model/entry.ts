@@ -3,4 +3,5 @@ export class Entry {
   name!: string
   path!: string
   favorite: boolean = false
+  data!: string
 }

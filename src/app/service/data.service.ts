@@ -16,8 +16,8 @@ export class DataService {
 
   constructor() {
     this.db = new Dexie(DataService.CACHE)
-    this.db.version(1).stores({
-      entries: "++id,name,path,favorite"
+    this.db.version(2).stores({
+      entries: "++id,name,path,favorite,data"
     })
 
   }
@@ -71,14 +71,14 @@ export class DataService {
     ).pipe(map(() => {}))
   }
 
-  create(file: File): Observable<void> {
+  createByFile(file: File): Observable<void> {
 
     let entry = new Entry()
 
     return from(
       this.db.table(DataService.TABLE)
         .add(entry)
-        .then((id) => {
+        .then(id => {
           entry.id = id as number
           entry.name = 'File #' + id
           entry.path = DataService.CACHE_PREFIX + id
@@ -88,6 +88,24 @@ export class DataService {
         .then(cache => cache.put(entry.path, new Response(file)))
         .then(() => this.db.table(DataService.TABLE).update(entry.id, entry))
     ).pipe(map(() => {}))
+
+  }
+
+  createByQr(data: string): Observable<number> {
+
+    let entry = new Entry()
+    entry.data = data
+
+    return from(
+      this.db.table(DataService.TABLE)
+        .add(entry)
+        .then(id => {
+          entry.id = id as number
+          entry.name = 'File #' + id
+        })
+        .then(() => this.db.table(DataService.TABLE).update(entry.id, entry))
+    ).pipe(map(() => entry.id))
+
   }
 
 }

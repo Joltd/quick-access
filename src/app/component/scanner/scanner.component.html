@@ -1,0 +1,5 @@
+<mat-toolbar color="primary">
+  <a mat-icon-button [routerLink]="['/browser']"><mat-icon>arrow_back</mat-icon></a>
+  <span>Quick Access</span>
+</mat-toolbar>
+<zxing-scanner class="scanner" (scanSuccess)="onScan($event)"></zxing-scanner>

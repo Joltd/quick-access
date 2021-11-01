@@ -11,10 +11,24 @@
   padding-top: 0!important;
 }
 
-.fab {
+.fab-panel {
+  display: grid;
+  grid-template-columns: 1fr min-content;
+  grid-template-rows: min-content min-content min-content;
+  grid-gap: 1rem;
+  justify-items: center;
+  align-items: center;
   position: fixed!important;
   bottom: 1rem;
   right: 1rem;
+
+  .label-button {
+    justify-self: right;
+  }
+
+  .hidden {
+    visibility: hidden;
+  }
 }
 
 .fab-gap {

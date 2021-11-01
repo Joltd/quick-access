@@ -4,6 +4,7 @@ import {Entry} from "../../model/entry";
 import {timeout} from "rxjs/operators";
 import {MatDialog} from "@angular/material/dialog";
 import {EditorComponent} from "../editor/editor.component";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'browser',
@@ -15,10 +16,12 @@ export class BrowserComponent implements OnInit {
   entries: Entry[] = []
   editMode: boolean = false
   entry!: Entry | null
+  showButtons: boolean = false
 
   constructor(
     private dataService: DataService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -37,7 +40,7 @@ export class BrowserComponent implements OnInit {
     }
     let file = input.files[0]
     input.value = ''
-    this.dataService.create(file)
+    this.dataService.createByFile(file)
       .subscribe(() => this.load())
   }
 
@@ -77,6 +80,10 @@ export class BrowserComponent implements OnInit {
         this.exitEditMode()
         this.load()
       })
+  }
+
+  scan() {
+    this.router.navigate(['/scanner']).then()
   }
 
 }

@@ -12,5 +12,15 @@
      long-touch (longClick)="enterEditMode(entry)">{{entry.name}}</a>
 </mat-nav-list>
 
-<button mat-fab class="fab" color="primary" (click)="file.click()"><mat-icon>add</mat-icon></button>
+<div class="fab-panel">
+  <button mat-button class="label-button" [class.hidden]="!showButtons" (click)="scan()">QR Code</button>
+  <button mat-mini-fab color="primary" [class.hidden]="!showButtons" (click)="scan()"><mat-icon>qr_code_scanner</mat-icon></button>
+  <button mat-button class="label-button" [class.hidden]="!showButtons" (click)="file.click()">File</button>
+  <button mat-mini-fab color="primary" [class.hidden]="!showButtons" (click)="file.click()"><mat-icon>image</mat-icon></button>
+  <div></div>
+  <button mat-fab color="primary" (click)="showButtons = !showButtons">
+    <mat-icon *ngIf="!showButtons">add</mat-icon>
+    <mat-icon *ngIf="showButtons">clear</mat-icon>
+  </button>
+</div>
 <input type="file" hidden (change)="this.onFileSelected($event)" #file >

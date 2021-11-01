@@ -9,11 +9,16 @@
        [style.left]="slidePanOffset(i) + '%'"
        [@slided]="{value: this.slided, params: {offset: slideOffset(i)}}"
        (@slided.done)="this.onSlidedDone()">
+
     <h1 class="title">{{entry.name}}</h1>
-    <div class="image-container">
+
+    <ngx-qrcode class="qrcode-container" *ngIf="entry.data" [value]="entry.data" [width]="400"></ngx-qrcode>
+
+    <div class="image-container" *ngIf="entry.path">
       <img class="image" [src]="entry.path" [alt]="entry.name" *ngIf="prod"/>
       <img class="image" [src]="debugImageSrc(i)" alt="Dev no image" *ngIf="!prod"/>
     </div>
+
   </div>
 </div>
 

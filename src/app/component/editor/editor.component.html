@@ -1,11 +1,11 @@
 <div mat-dialog-content class="content">
   <mat-form-field>
-    <mat-label>Name</mat-label>
+    <mat-label i18n>Name</mat-label>
     <input matInput [(ngModel)]="entry.name">
   </mat-form-field>
-  <mat-checkbox [(ngModel)]="entry.favorite">Favorite</mat-checkbox>
+  <mat-checkbox [(ngModel)]="entry.favorite" i18n>Favorite</mat-checkbox>
 </div>
 <div mat-dialog-actions class="actions">
-  <button mat-button (click)="ok()">Save</button>
-  <button mat-button (click)="cancel()">Cancel</button>
+  <button mat-button (click)="ok()" i18n>Save</button>
+  <button mat-button (click)="cancel()" i18n>Cancel</button>
 </div>

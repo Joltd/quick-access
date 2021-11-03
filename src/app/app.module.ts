@@ -18,12 +18,15 @@ import {FormsModule} from "@angular/forms";
 import {MatDialogModule} from "@angular/material/dialog";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
-import {LongTouchDirective} from "./directive/long-touch.directive";
 import {MatCheckboxModule} from "@angular/material/checkbox";
-import {PinchZoomDirective} from "./directive/pinch-zoom.directive";
 import {ScannerComponent} from "./component/scanner/scanner.component";
 import {ZXingScannerModule} from "@zxing/ngx-scanner";
 import {NgxQRCodeModule} from "@techiediaries/ngx-qrcode";
+import {
+  MatSlideContainerComponent,
+  MatSlideDirective
+} from "./component/mat-slide-container/mat-slide-container.component";
+import {IntroComponent} from "./component/intro/intro.component";
 
 @NgModule({
   declarations: [
@@ -32,16 +35,15 @@ import {NgxQRCodeModule} from "@techiediaries/ngx-qrcode";
     ViewerComponent,
     EditorComponent,
     ScannerComponent,
-    LongTouchDirective,
-    PinchZoomDirective
+    MatSlideContainerComponent,
+    MatSlideDirective,
+    IntroComponent
   ],
     imports: [
         BrowserModule,
         AppRoutingModule,
         ServiceWorkerModule.register('quick-access-worker.js', {
             enabled: environment.production,
-            // Register the ServiceWorker as soon as the app is stable
-            // or after 30 seconds (whichever comes first).
             registrationStrategy: 'registerWhenStable:30000'
         }),
         HammerModule,

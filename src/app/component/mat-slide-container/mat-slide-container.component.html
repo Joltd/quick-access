@@ -1,0 +1,18 @@
+<div class="slide-container"
+     [style.left]="slidePanOffset() + '%'"
+     [style.width]="(sliders.length * 100) + '%'"
+     [style.grid-template-columns]="'repeat(' + sliders.length + ', 1fr)'"
+     [class.primary]="color == 'primary'"
+     (panmove)="onPanMove($event)"
+     (panend)="onPanEnd($event)"
+     [@slided]="{value: this.slided, params: {offset: slideOffset()}}"
+     (@slided.done)="onSlidedDone()">
+  <ng-content></ng-content>
+</div>
+<div class="dots" [class.primary]="color == 'primary'" *ngIf="sliders.length > 1">
+  <div class="dot"
+       [class.primary]="color == undefined"
+       [class.accent]="color == 'primary'"
+       *ngFor="let slide of sliders, index as i"
+       [@pointed]="i == pointer"></div>
+</div>

@@ -9,13 +9,13 @@
   <a mat-list-item
      [routerLink]="!editMode ? ['/viewer', entry.id] : null"
      *ngFor="let entry of entries"
-     long-touch (longClick)="enterEditMode(entry)">{{entry.name}}</a>
+     (pressup)="enterEditMode($event, entry)">{{entry.name}}</a>
 </mat-nav-list>
 
 <div class="fab-panel">
-  <button mat-button class="label-button" [class.hidden]="!showButtons" (click)="scan()">QR Code</button>
+  <button mat-button class="label-button" [class.hidden]="!showButtons" (click)="scan()" i18n>QR Code</button>
   <button mat-mini-fab color="primary" [class.hidden]="!showButtons" (click)="scan()"><mat-icon>qr_code_scanner</mat-icon></button>
-  <button mat-button class="label-button" [class.hidden]="!showButtons" (click)="file.click()">File</button>
+  <button mat-button class="label-button" [class.hidden]="!showButtons" (click)="file.click()" i18n>File</button>
   <button mat-mini-fab color="primary" [class.hidden]="!showButtons" (click)="file.click()"><mat-icon>image</mat-icon></button>
   <div></div>
   <button mat-fab color="primary" (click)="showButtons = !showButtons">

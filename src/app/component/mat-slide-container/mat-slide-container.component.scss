@@ -1,0 +1,43 @@
+@use '~@angular/material' as mat;
+
+$primary: mat.define-palette(mat.$indigo-palette);
+$accent: mat.define-palette(mat.$pink-palette);
+
+:host {
+  display: grid;
+  grid-template-rows: 1fr min-content;
+  overflow: hidden;
+}
+
+.slide-container {
+  display: grid;
+  grid-auto-flow: column;
+  position: relative;
+  overflow: hidden;
+}
+
+.dots {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+
+  .dot {
+    border-radius: 0.25rem;
+    width: 0.5rem;
+    height: 0.5rem;
+    margin: 0.25rem;
+  }
+
+  .dot-selected {
+    width: 1rem;
+  }
+}
+
+.primary {
+  background-color: mat.get-color-from-palette($primary, 500);
+}
+
+.accent {
+  background-color: mat.get-color-from-palette($accent, A200);
+}

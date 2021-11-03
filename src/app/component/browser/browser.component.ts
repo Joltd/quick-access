@@ -41,11 +41,14 @@ export class BrowserComponent implements OnInit {
     let file = input.files[0]
     input.value = ''
     this.dataService.createByFile(file)
-      .subscribe(() => this.load())
+      .subscribe(() => {
+        this.showButtons = false
+        this.load()
+      })
   }
 
-  enterEditMode(entry: Entry) {
-    if (this.editMode) {
+  enterEditMode(event: any, entry: Entry) {
+    if (event.deltaTime < 500 || this.editMode) {
       return
     }
     this.editMode = true

@@ -3,12 +3,8 @@
   <span>Quick Access</span>
 </mat-toolbar>
 
-<div class="slide-container" (panmove)="onPan($event)" (panend)="onPanEnd($event)">
-  <div class="slide"
-       *ngFor="let entry of entries, index as i"
-       [style.left]="slidePanOffset(i) + '%'"
-       [@slided]="{value: this.slided, params: {offset: slideOffset(i)}}"
-       (@slided.done)="this.onSlidedDone()">
+<mat-slide-container [pointer]="pointer">
+  <div class="slide" mat-slide *ngFor="let entry of entries, index as i">
 
     <h1 class="title">{{entry.name}}</h1>
 
@@ -20,8 +16,4 @@
     </div>
 
   </div>
-</div>
-
-<div class="dots" *ngIf="entries.length > 1">
-  <div class="dot" [class.dot-big]="i == pointer" *ngFor="let entry of entries, index as i"></div>
-</div>
+</mat-slide-container>

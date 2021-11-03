@@ -8,18 +8,7 @@ import {animate, AnimationBuilder, state, style, transition, trigger} from "@ang
 @Component({
   selector: 'viewer',
   templateUrl: 'viewer.component.html',
-  styleUrls: ['viewer.component.scss'],
-  animations: [
-    trigger(
-      'slided',
-      [
-        transition(
-          '* => true',
-          [animate('10ms', style({left: '{{offset}}%'}))]
-        )
-      ]
-    )
-  ]
+  styleUrls: ['viewer.component.scss']
 })
 export class ViewerComponent implements OnInit {
 
@@ -28,8 +17,6 @@ export class ViewerComponent implements OnInit {
   entries: Entry[] = []
   private id!: number
   pointer: number = 0
-  private offset: number = 0
-  slided: boolean = false
 
   constructor(
     private router: Router,
@@ -39,10 +26,17 @@ export class ViewerComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.route.params.subscribe(params => {
-      this.id = +params['id']
-      this.load()
-    })
+    this.dataService.isFirstStart()
+      .subscribe(result => {
+        if (result) {
+          this.router.navigate(['/intro']).then()
+        } else {
+          this.route.params.subscribe(params => {
+            this.id = +params['id']
+            this.load()
+          })
+        }
+      })
   }
 
   private load() {
@@ -57,48 +51,9 @@ export class ViewerComponent implements OnInit {
       })
   }
 
-  slidePanOffset(index: number): number {
-    return (index - this.pointer) * 100 + this.offset
-  }
-
-  slideOffset(index: number): number {
-    return (index - this.pointer) * 100
-  }
-
-  onPan(event: any) {
-    let offsetPercent = event.distance / window.innerWidth * 100
-    if (event.offsetDirection == 2) { // left
-      this.offset = -offsetPercent
-    } else if (event.offsetDirection == 4) { // right
-      this.offset = offsetPercent
-    }
-  }
-
-  onPanEnd(event: any) {
-    if (Math.abs(this.offset) < 15) {
-      this.slided = true
-      return
-    }
-
-    if (event.offsetDirection == 2 && this.pointer < this.entries.length - 1) { // left
-      this.pointer++
-      this.offset = this.offset + 100
-    } else if (event.offsetDirection == 4 && this.pointer > 0) { // right
-      this.pointer--
-      this.offset = this.offset - 100
-    } else {
-    }
-    this.slided = true
-  }
-
-  onSlidedDone() {
-    this.slided = false
-    this.offset = 0
-  }
-
   debugImageSrc(index: number): string {
     if (index == 0) {
-      return '/quick-access/assets/page-2.png'
+      return '/quick-access/assets/id-card.png'
     } else {
       return '/quick-access/assets/qr-code.png'
     }

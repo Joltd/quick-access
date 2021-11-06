@@ -45,8 +45,10 @@ export class ViewerComponent implements OnInit {
         this.entries = entries
         if (this.entries.length == 0) {
           this.router.navigate(['/browser']).then()
-        } else {
+        } else if (this.id) {
           this.pointer = this.entries.findIndex(entry => entry.id == this.id)
+        } else {
+          this.pointer = this.entries.findIndex(entry => entry.favorite)
         }
       })
   }

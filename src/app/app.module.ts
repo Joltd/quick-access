@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import {BrowserModule, HammerModule} from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
+import {AppComponent, UpdatesAvailableDialog} from './app.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -27,6 +27,8 @@ import {
   MatSlideDirective
 } from "./component/mat-slide-container/mat-slide-container.component";
 import {IntroComponent} from "./component/intro/intro.component";
+import { HttpClientModule } from '@angular/common/http';
+import { TranslocoRootModule } from './transloco-root.module';
 
 @NgModule({
   declarations: [
@@ -37,29 +39,32 @@ import {IntroComponent} from "./component/intro/intro.component";
     ScannerComponent,
     MatSlideContainerComponent,
     MatSlideDirective,
-    IntroComponent
+    IntroComponent,
+    UpdatesAvailableDialog
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        ServiceWorkerModule.register('quick-access-worker.js', {
-            enabled: environment.production,
-            registrationStrategy: 'registerWhenStable:30000'
-        }),
-        HammerModule,
-        BrowserAnimationsModule,
-        MatListModule,
-        MatButtonModule,
-        MatIconModule,
-        MatToolbarModule,
-        FormsModule,
-        MatDialogModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatCheckboxModule,
-        ZXingScannerModule,
-        NgxQRCodeModule
-    ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    ServiceWorkerModule.register('quick-access-worker.js', {
+      enabled: environment.production,
+      registrationStrategy: 'registerWhenStable:30000'
+    }),
+    HammerModule,
+    BrowserAnimationsModule,
+    MatListModule,
+    MatButtonModule,
+    MatIconModule,
+    MatToolbarModule,
+    FormsModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatCheckboxModule,
+    ZXingScannerModule,
+    NgxQRCodeModule,
+    HttpClientModule,
+    TranslocoRootModule
+  ],
   providers: [DataService],
   bootstrap: [AppComponent]
 })

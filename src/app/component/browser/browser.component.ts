@@ -47,8 +47,8 @@ export class BrowserComponent implements OnInit {
       })
   }
 
-  enterEditMode(event: any, entry: Entry) {
-    if (event.deltaTime < 500 || this.editMode) {
+  enterEditMode(entry: Entry) {
+    if (this.editMode) {
       return
     }
     this.editMode = true

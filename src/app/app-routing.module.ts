@@ -4,6 +4,7 @@ import {BrowserComponent} from "./component/browser/browser.component";
 import {ViewerComponent} from "./component/viewer/viewer.component";
 import {ScannerComponent} from "./component/scanner/scanner.component";
 import {IntroComponent} from "./component/intro/intro.component";
+import {TestComponent} from "./component/test/test.component";
 
 const routes: Routes = [
   { path: 'intro', component: IntroComponent },
@@ -11,7 +12,8 @@ const routes: Routes = [
   { path: 'viewer', component: ViewerComponent },
   { path: 'viewer/:id', component: ViewerComponent },
   { path: 'scanner', component: ScannerComponent },
-  { path: '', redirectTo: '/viewer', pathMatch: 'full'}
+  { path: 'test', component: TestComponent },
+  { path: '', redirectTo: '/test', pathMatch: 'full'}
 ];
 
 @NgModule({

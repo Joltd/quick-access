@@ -9,7 +9,7 @@
   <a mat-list-item
      [routerLink]="!editMode ? ['/viewer', entry.id] : null"
      *ngFor="let entry of entries"
-     (pressup)="enterEditMode($event, entry)">{{entry.name}}</a>
+     long-press (longPress)="enterEditMode(entry)">{{entry.name}}</a>
 </mat-nav-list>
 
 <div class="fab-panel" *transloco="let t">

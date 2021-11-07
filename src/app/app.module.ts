@@ -29,6 +29,8 @@ import {
 import {IntroComponent} from "./component/intro/intro.component";
 import { HttpClientModule } from '@angular/common/http';
 import { TranslocoRootModule } from './transloco-root.module';
+import {TestComponent} from "./component/test/test.component";
+import {LongPressDirective} from "./directive/long-press.directive";
 
 @NgModule({
   declarations: [
@@ -40,7 +42,9 @@ import { TranslocoRootModule } from './transloco-root.module';
     MatSlideContainerComponent,
     MatSlideDirective,
     IntroComponent,
-    UpdatesAvailableDialog
+    UpdatesAvailableDialog,
+    TestComponent,
+    LongPressDirective
   ],
   imports: [
     BrowserModule,

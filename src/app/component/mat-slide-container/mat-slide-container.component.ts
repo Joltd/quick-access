@@ -1,7 +1,7 @@
 import {
-  AfterViewInit,
+  AfterContentInit,
   Component,
-  ContentChildren, Directive, ElementRef, HostBinding, Input
+  ContentChildren, Directive, ElementRef, Input, QueryList, Renderer2
 } from "@angular/core";
 import {animate, state, style, transition, trigger} from "@angular/animations";
 import {ThemePalette} from "@angular/material/core/common-behaviors/color";
@@ -38,7 +38,7 @@ export class MatSlideDirective {}
     )
   ]
 })
-export class MatSlideContainerComponent {
+export class MatSlideContainerComponent implements AfterContentInit {
 
   @Input()
   color: ThemePalette = undefined
@@ -48,8 +48,21 @@ export class MatSlideContainerComponent {
   offset: number = 0
   slided: boolean = false
 
-  @ContentChildren(MatSlideDirective)
-  sliders: MatSlideDirective[] = []
+  @ContentChildren(MatSlideDirective, {read: ElementRef})
+  _slides?: QueryList<ElementRef>
+
+  constructor(private renderer: Renderer2) {}
+
+  ngAfterContentInit(): void {
+    for (let slide of this.slides) {
+      this.renderer.setStyle(slide.nativeElement, 'min-height', '100%')
+      this.renderer.setStyle(slide.nativeElement, 'width', '100vw')
+    }
+  }
+
+  get slides(): ElementRef[] {
+    return this._slides?.toArray() || []
+  }
 
   slidePanOffset(): number {
     return -this.pointer * 100 + this.offset
@@ -79,7 +92,7 @@ export class MatSlideContainerComponent {
       return
     }
 
-    if (event.offsetDirection == 2 && this.pointer < this.sliders.length - 1) { // left
+    if (event.offsetDirection == 2 && this.pointer < this.slides.length - 1) { // left
       this.pointer++
       this.offset = this.offset + 100
     } else if (event.offsetDirection == 4 && this.pointer > 0) { // right
